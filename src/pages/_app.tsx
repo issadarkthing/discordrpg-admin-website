@@ -11,7 +11,8 @@ export const themeOptions = createTheme({
       main: '#15465b',
     },
     secondary: {
-      main: '#f50057',
+      main: '#3AAFB9',
+      dark: "#27757c"
     },
     background: {
       paper: '#091119',
@@ -22,6 +23,19 @@ export const themeOptions = createTheme({
     },
     divider: "rgba(255, 255, 255, 0.12)",
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.secondary.main,
+          color: "ghostWhite",
+          "&:hover": {
+            backgroundColor: theme.palette.secondary.dark,
+          }
+        })
+      }
+    }
+  }
 });
 
 export const queryClient = new QueryClient();
