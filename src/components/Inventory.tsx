@@ -155,7 +155,7 @@ export default function Inventory() {
         loading={isLoading}
         onSelectionModelChange={ids => setSelected(ids as string[])}
       />
-      <Grid container justifyContent="flex-end" sx={{ marginTop: "10px" }}>
+      <Grid container gap={1} justifyContent="flex-end" sx={{ marginTop: "10px" }}>
         <DeleteButton />
         <RefreshButton />
       </Grid>

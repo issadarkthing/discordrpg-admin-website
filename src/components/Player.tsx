@@ -223,6 +223,7 @@ export default function Player() {
       <Grid 
         container 
         justifyContent="flex-end" 
+        gap={1}
         sx={{ marginTop: "10px" }}
       >
         <DeleteButton />
