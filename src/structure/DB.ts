@@ -8,7 +8,7 @@ export interface User {
 }
 
 export class UserDB {
-  db = new Database("../../discordrpg.sqlite3");
+  db = new Database("discordrpg.sqlite3");
 
   constructor() {
     const stmt = this.db.prepare(`
@@ -16,7 +16,7 @@ export class UserDB {
         id       INTEGER PRIMARY KEY,
         username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        apiUrl   TEXT
+        api_url  TEXT
       )
     `);
 
