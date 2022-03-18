@@ -1,11 +1,9 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Router from "next/router";
 import { IconButton } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
-
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -37,7 +35,7 @@ export default function BasicMenu() {
         onClick={handleClick}
         color="inherit"
       >
-        <AccountCircle />
+        <MenuIcon />
       </IconButton>
       <Menu
         id="basic-menu"
