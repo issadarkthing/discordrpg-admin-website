@@ -6,11 +6,15 @@ export const ironOptions = {
   }
 }
 
+export interface User {
+  username: string;
+  apiUrl: string;
+}
+
 declare module "iron-session" {
   interface IronSessionData {
-    user?: {
-      username: string;
-      apiUrl: string;
-    }
+    user?: User;
   }
 }
+
+

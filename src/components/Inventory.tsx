@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import { useUpdateAlert } from "./AlertProvider";
 import { queryClient } from "../pages/_app";
+import { User } from "../sessionConfig";
 
 export interface InventoryStucture {
   id: string;
@@ -59,12 +60,12 @@ const columns: GridColDef[] = [
   }
 ];
 
-export default function Inventory() {
+export default function Inventory({ apiUrl }: { apiUrl: User["apiUrl"] }) {
 
   const queryKey = "inventory";
   const { isLoading, error, data, refetch } = useQuery<InventoryStucture[]>(
     queryKey, 
-    () => fetch("http://localhost:3000/inventory")
+    () => fetch(`${apiUrl}/inventory`)
       .then(data => data.json()), 
     { staleTime: 1000 * 60 },
   );
@@ -84,7 +85,7 @@ export default function Inventory() {
       }
 
       for (const [itemID, ownerID] of ids.map(x => x.split("_"))) {
-        await fetch(`http://localhost:3000/inventory/${ownerID}/${itemID}`, {
+        await fetch(`${apiUrl}/inventory/${ownerID}/${itemID}`, {
           method: "DELETE",
         });
       }

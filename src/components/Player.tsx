@@ -10,6 +10,7 @@ import { useState } from "react";
 import Confirmation from "./Confirmation";
 import { useUpdateAlert } from "./AlertProvider";
 import DataGrid from "./DataGrid";
+import { User } from "../sessionConfig";
 
 export interface PlayerStructure {
   id: string;
@@ -110,16 +111,16 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function Player() {
+export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
 
   const { isLoading, error, data, refetch } = useQuery<PlayerStructure[]>("players", () =>
-    fetch("http://localhost:3000/player").then(data => data.json())
+    fetch(`${apiUrl}/player`).then(data => data.json())
     , { staleTime: 1000 * 60 });
   
   const [selected, setSelected] = useState<string[]>([]);
 
   const editPlayer = useMutation("edit-player", async (x: GridCellEditCommitParams) => {
-    await fetch(`http://localhost:3000/player/${x.id}`, {
+    await fetch(`${apiUrl}/player/${x.id}`, {
       method: "PATCH",
       body: JSON.stringify({ [x.field]: x.value }),
       headers: {
@@ -148,7 +149,7 @@ export default function Player() {
         return;
       }
 
-      await fetch(`http://localhost:3000/player?ids=${ids.join(",")}`, {
+      await fetch(`${apiUrl}/player?ids=${ids.join(",")}`, {
         method: "DELETE",
       });
 

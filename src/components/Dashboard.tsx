@@ -13,12 +13,13 @@ import Inventory from './Inventory';
 import { useState } from 'react';
 import AllAlerts from "./AllAlerts";
 import UserMenu from "./UserMenu";
+import { User } from '../sessionConfig';
 
 const drawerWidth = 240;
 type Category = "Players" | "Inventories";
 
 
-export default function Dashboard() {
+export default function Dashboard({ user }: { user: User }) {
 
   const categories = ["Players", "Inventories"] as const;
   const [category, setCategory] = useState<Category>("Players");
@@ -26,8 +27,8 @@ export default function Dashboard() {
 
   const Table = (props: { category: Category }) => {
     switch (props.category) {
-      case "Players": return <Player />;
-      case "Inventories": return <Inventory />;
+      case "Players": return <Player apiUrl={user.apiUrl} />;
+      case "Inventories": return <Inventory apiUrl={user.apiUrl} />;
     }
   }
 
