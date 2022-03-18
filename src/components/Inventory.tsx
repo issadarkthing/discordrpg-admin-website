@@ -1,4 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import DataGrid from "./DataGrid";
 import { useMutation, useQuery } from "react-query";
 import { Grid, Button, Box, Avatar } from "@mui/material";
@@ -7,6 +7,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import { useUpdateAlert } from "./AlertProvider";
+import { queryClient } from "../pages/_app";
 
 export interface InventoryStucture {
   id: string;
@@ -60,13 +61,16 @@ const columns: GridColDef[] = [
 
 export default function Inventory() {
 
-  const { isLoading, error, data, refetch } = useQuery<InventoryStucture[]>("inventory", () =>
-    fetch("http://localhost:3000/inventory")
-      .then(data => data.json())
-    , { staleTime: 1000 * 60 });
+  const queryKey = "inventory";
+  const { isLoading, error, data, refetch } = useQuery<InventoryStucture[]>(
+    queryKey, 
+    () => fetch("http://localhost:3000/inventory")
+      .then(data => data.json()), 
+    { staleTime: 1000 * 60 },
+  );
 
 
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<GridSelectionModel>([]);
 
 
   const DeleteButton = () => {
@@ -85,7 +89,9 @@ export default function Inventory() {
         });
       }
 
-      refetch();
+      setSelected([]);
+      await queryClient.invalidateQueries(queryKey);
+      await refetch();
     });
 
     const itemsText = itemsCount > 1 ? "items" : "item";
@@ -100,7 +106,7 @@ export default function Inventory() {
             setShowDeleteWarning(false);
 
             if (confirmed) {
-              deleteItems.mutate(selected);
+              deleteItems.mutate(selected as string[]);
               updateAlertState
                 .setSuccess(`Successfully deleted ${itemsCount} ${itemsText}`);
             }
@@ -131,8 +137,9 @@ export default function Inventory() {
       <Button 
         startIcon={<RefreshIcon />}
         sx={{ color: "text.primary" }}
-        onClick={() => { 
-          refetch();
+        onClick={async () => { 
+          await queryClient.invalidateQueries(queryKey);
+          await refetch();
           updateAlertState.setSuccess("Successfully refreshed");
         }}
       >
@@ -153,7 +160,13 @@ export default function Inventory() {
         rows={data}
         columns={columns}
         loading={isLoading}
-        onSelectionModelChange={ids => setSelected(ids as string[])}
+        selectionModel={selected}
+        onSelectionModelChange={model => setSelected(model)}
+        sx={{ 
+          "& .footerCointainer": {
+            color: "text.primary"
+          },
+        }}
       />
       <Grid container gap={1} justifyContent="flex-end" sx={{ marginTop: "10px" }}>
         <DeleteButton />
