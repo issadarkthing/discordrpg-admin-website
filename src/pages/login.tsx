@@ -4,6 +4,7 @@ import {
   Paper,
   TextField,
   Button,
+  Typography,
 } from "@mui/material";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
@@ -78,7 +79,7 @@ export default function() {
       }
     });
 
-    if (res.status === 200) {
+    if (res.ok) {
       router.push("/");
     }
   }
@@ -94,7 +95,7 @@ export default function() {
     >
       <CssBaseline />
       <Grid item xs={3}>
-        <Paper sx={{ width: 400, height: "50vh" }}>
+        <Paper sx={{ width: 400, height: 400 }}>
           <Grid 
             container
             sx={{ height: "100%" }}
@@ -104,10 +105,17 @@ export default function() {
             justifyContent="center" 
             alignItems="center"
           >
+            <Typography variant="h5">
+              DiscordRPG Admin
+            </Typography>
             <NameField ref={username} />
             <PasswordField ref={password} />
             <Grid item sx={{ width: "80%" }}>
-              <Button sx={{ width: "100%" }} onClick={onLogin}>
+              <Button 
+                type="submit" 
+                sx={{ width: "100%" }} 
+                onClick={onLogin}
+              >
                 login
               </Button>
             </Grid>
