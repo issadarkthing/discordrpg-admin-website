@@ -5,8 +5,30 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
+import { ironOptions } from "../sessionConfig";
+import { UserSession } from "./api/login";
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+
+    const user = req.session as UserSession;
+
+    if (user) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        }
+      }
+    }
+
+    return { props: {} }
+  },
+  ironOptions
+)
 
 const NameField = React.forwardRef((props, ref) => {
 
