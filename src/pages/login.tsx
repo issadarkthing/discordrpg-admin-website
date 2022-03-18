@@ -64,7 +64,8 @@ export default function() {
   const updateAlertState = useUpdateAlert();
 
 
-  const onLogin = async () => {
+  const onLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     const body = { 
       username: username.current?.value, 
@@ -98,32 +99,33 @@ export default function() {
     >
       <CssBaseline />
       <Grid item xs={3}>
-        <Paper sx={{ width: 400, height: 400 }}>
-          <Grid 
-            container
-            sx={{ height: "100%" }}
-            spacing={5} 
-            display="flex" 
-            direction="column"
-            justifyContent="center" 
-            alignItems="center"
-          >
-            <Typography variant="h5">
-              DiscordRPG Admin
-            </Typography>
-            <NameField ref={username} />
-            <PasswordField ref={password} />
-            <Grid item sx={{ width: "80%" }}>
-              <Button 
-                type="submit" 
-                sx={{ width: "100%" }} 
-                onClick={onLogin}
-              >
-                login
-              </Button>
+        <form onSubmit={onLogin}>
+          <Paper sx={{ width: 400, height: 400 }}>
+            <Grid 
+              container
+              sx={{ height: "100%" }}
+              spacing={5} 
+              display="flex" 
+              direction="column"
+              justifyContent="center" 
+              alignItems="center"
+            >
+              <Typography variant="h5">
+                DiscordRPG Admin
+              </Typography>
+              <NameField ref={username} />
+              <PasswordField ref={password} />
+              <Grid item sx={{ width: "80%" }}>
+                <Button 
+                  type="submit" 
+                  sx={{ width: "100%" }} 
+                >
+                  login
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        </form>
       </Grid>
       <AllAlerts />
     </Grid>
