@@ -115,6 +115,8 @@ export default function Player() {
   const { isLoading, error, data, refetch } = useQuery<PlayerStructure[]>("players", () =>
     fetch("http://localhost:3000/player").then(data => data.json())
     , { staleTime: 1000 * 60 });
+  
+  const [selected, setSelected] = useState<string[]>([]);
 
   const editPlayer = useMutation("edit-player", async (x: GridCellEditCommitParams) => {
     await fetch(`http://localhost:3000/player/${x.id}`, {
@@ -129,7 +131,6 @@ export default function Player() {
   });
 
 
-  const [selected, setSelected] = useState<string[]>([]);
 
   const onCellEditCommit = (params: GridCellEditCommitParams) => {
     editPlayer.mutate(params);
@@ -152,6 +153,7 @@ export default function Player() {
       });
 
       refetch();
+      setSelected([]);
     });
 
     const playersText = playersCount > 1 ? "players" : "player";
@@ -219,6 +221,11 @@ export default function Player() {
         loading={isLoading}
         onCellEditCommit={onCellEditCommit}
         onSelectionModelChange={ids => { setSelected(ids as string[]) }}
+        sx={{ 
+          "& .footerCointainer": {
+            color: "text.primary"
+          },
+        }}
       />
       <Grid 
         container 
