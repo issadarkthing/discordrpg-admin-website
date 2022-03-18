@@ -9,6 +9,8 @@ import {
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
+import { useUpdateAlert } from "../components/AlertProvider";
+import AllAlerts from "../components/AllAlerts";
 import { ironOptions } from "../sessionConfig";
 
 export const getServerSideProps = withIronSessionSsr(
@@ -59,6 +61,7 @@ export default function() {
   const username = useRef<HTMLInputElement>();
   const password = useRef<HTMLInputElement>();
   const router = useRouter();
+  const updateAlertState = useUpdateAlert();
 
 
   const onLogin = async () => {
@@ -78,6 +81,9 @@ export default function() {
 
     if (res.ok) {
       router.push("/");
+    } else {
+      const message = await res.text();
+      updateAlertState.setError(message);
     }
   }
 
@@ -119,6 +125,7 @@ export default function() {
           </Grid>
         </Paper>
       </Grid>
+      <AllAlerts />
     </Grid>
   )
 }
