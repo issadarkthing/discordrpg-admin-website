@@ -14,7 +14,6 @@ export const getServerSideProps = withIronSessionSsr(
       }
     }
 
-
     return {
       props: {
         user: req.session.user,
@@ -23,7 +22,6 @@ export const getServerSideProps = withIronSessionSsr(
   },
   ironOptions,
 );
-
 
 function App({ user }: { user: User }) { 
   return <Dashboard user={user} />;

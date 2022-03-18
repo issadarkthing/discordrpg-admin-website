@@ -9,6 +9,7 @@ export const ironOptions = {
 export interface User {
   username: string;
   apiUrl: string;
+  apiToken: string;
 }
 
 declare module "iron-session" {

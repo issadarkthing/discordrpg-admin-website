@@ -13,8 +13,8 @@ import Inventory from './Inventory';
 import { useState } from 'react';
 import AllAlerts from "./AllAlerts";
 import UserMenu from "./UserMenu";
-import { User } from '../sessionConfig';
 import Settings from "./Settings";
+import { User } from "../sessionConfig";
 
 const drawerWidth = 240;
 type Category = "Players" | "Inventories" | "Settings";
@@ -30,7 +30,7 @@ export default function Dashboard({ user }: { user: User }) {
     switch (props.category) {
       case "Players": return <Player apiUrl={user.apiUrl} />;
       case "Inventories": return <Inventory apiUrl={user.apiUrl} />;
-      case "Settings": return <Settings apiUrl={user.apiUrl} />;
+      case "Settings": return <Settings />;
     }
   }
 

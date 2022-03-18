@@ -33,6 +33,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   session.user = { 
     username: user.username,
     apiUrl: user.api_url,
+    apiToken: user.api_token,
   };
 
   await req.session.save();

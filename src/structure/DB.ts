@@ -32,16 +32,16 @@ export class UserDB {
 
   setPassword(username: string, password: string) {
     const stmt = this.db.prepare("UPDATE user SET password = ? WHERE username = ?");
-    stmt.run(username, password);
+    stmt.run(password, username);
   }
 
   setApiToken(username: string, token: string) {
     const stmt = this.db.prepare("UPDATE user SET api_token = ? WHERE username = ?");
-    stmt.run(username, token);
+    stmt.run(token, username);
   }
 
   setApiUrl(username: string, apiUrl: string) {
     const stmt = this.db.prepare("UPDATE user SET api_url = ? WHERE username = ?");
-    stmt.run(username, apiUrl);
+    stmt.run(apiUrl, username);
   }
 }
