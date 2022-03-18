@@ -25,6 +25,9 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   if (!user) {
     res.status(404).send("cannot find user");
     return;
+  } else if (user.password !== password) {
+    res.status(403).send("invalid password");
+    return;
   }
 
   session.user = { 
