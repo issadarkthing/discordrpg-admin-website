@@ -12,6 +12,7 @@ import Player from './Player';
 import Inventory from './Inventory';
 import { useState } from 'react';
 import AllAlerts from "./AllAlerts";
+import UserMenu from "./UserMenu";
 
 const drawerWidth = 240;
 type Category = "Players" | "Inventories";
@@ -38,9 +39,15 @@ export default function Dashboard() {
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography 
+            variant="h6" 
+            noWrap 
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
             Admin Panel
           </Typography>
+          <UserMenu  />
         </Toolbar>
       </AppBar>
       <Box

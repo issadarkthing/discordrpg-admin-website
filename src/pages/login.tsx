@@ -14,9 +14,9 @@ import { UserSession } from "./api/login";
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
 
-    const user = req.session as UserSession;
+    const session = req.session as UserSession;
 
-    if (user) {
+    if (session.user) {
       return {
         redirect: {
           destination: "/",

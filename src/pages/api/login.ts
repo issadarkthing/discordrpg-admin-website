@@ -6,11 +6,13 @@ import { UserDB } from "../../structure/DB";
 
 export default withIronSessionApiRoute(loginRoute, ironOptions);
 
+export interface User {
+  username: string;
+  apiUrl?: string;
+}
+
 export interface UserSession extends IronSession {
-  user: {
-    username: string;
-    apiUrl?: string;
-  }
+  user: User;
 }
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
