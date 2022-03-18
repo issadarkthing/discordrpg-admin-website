@@ -5,6 +5,7 @@ export interface User {
   username: string;
   password: string;
   api_url: string;
+  api_token: string;
 }
 
 export class UserDB {
