@@ -202,7 +202,7 @@ export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
         sx={{ color: "text.primary" }}
         onClick={() => { 
           refetch();
-          updateAlertState.setSuccess("Successfully refreshed")
+          updateAlertState.setSuccess("Successfully refreshed");
         }}
       >
         Refresh
