@@ -1,13 +1,11 @@
 import Dashboard from "../components/Dashboard";
 import { withIronSessionSsr } from "iron-session/next";
 import { ironOptions } from "../sessionConfig";
-import type { UserSession } from "./api/login";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const session = req.session as UserSession;
 
-    if (!session.user) {
+    if (!req.session.user) {
       return {
         redirect: {
           destination: "/login",
@@ -19,12 +17,16 @@ export const getServerSideProps = withIronSessionSsr(
 
     return {
       props: {
-        user: session.user,
+        user: req.session.user,
       },
     };
   },
   ironOptions,
 );
+
+interface AppProps {
+  children?: JSX.Element;
+}
 
 function App() { 
   return <Dashboard />;

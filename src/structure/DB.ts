@@ -4,7 +4,7 @@ export interface User {
   id: number;
   username: string;
   password: string;
-  apiUrl: string;
+  api_url: string;
 }
 
 export class UserDB {

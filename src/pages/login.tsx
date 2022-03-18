@@ -10,14 +10,11 @@ import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { ironOptions } from "../sessionConfig";
-import { UserSession } from "./api/login";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
 
-    const session = req.session as UserSession;
-
-    if (session.user) {
+    if (req.session.user) {
       return {
         redirect: {
           destination: "/",
