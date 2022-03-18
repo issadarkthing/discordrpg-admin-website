@@ -223,6 +223,7 @@ export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
         onCellEditCommit={onCellEditCommit}
         onSelectionModelChange={ids => { setSelected(ids as string[]) }}
         sx={{ 
+          backgroundColor: "background.paper",
           "& .footerCointainer": {
             color: "text.primary"
           },

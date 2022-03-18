@@ -164,6 +164,7 @@ export default function Inventory({ apiUrl }: { apiUrl: User["apiUrl"] }) {
         selectionModel={selected}
         onSelectionModelChange={model => setSelected(model)}
         sx={{ 
+          backgroundColor: "background.paper",
           "& .footerCointainer": {
             color: "text.primary"
           },

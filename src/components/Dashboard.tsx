@@ -14,14 +14,15 @@ import { useState } from 'react';
 import AllAlerts from "./AllAlerts";
 import UserMenu from "./UserMenu";
 import { User } from '../sessionConfig';
+import Settings from "./Settings";
 
 const drawerWidth = 240;
-type Category = "Players" | "Inventories";
+type Category = "Players" | "Inventories" | "Settings";
 
 
 export default function Dashboard({ user }: { user: User }) {
 
-  const categories = ["Players", "Inventories"] as const;
+  const categories = ["Players", "Inventories", "Settings"] as const;
   const [category, setCategory] = useState<Category>("Players");
 
 
@@ -29,6 +30,7 @@ export default function Dashboard({ user }: { user: User }) {
     switch (props.category) {
       case "Players": return <Player apiUrl={user.apiUrl} />;
       case "Inventories": return <Inventory apiUrl={user.apiUrl} />;
+      case "Settings": return <Settings apiUrl={user.apiUrl} />;
     }
   }
 
@@ -54,7 +56,6 @@ export default function Dashboard({ user }: { user: User }) {
       <Box
         component="main"
         sx={{ 
-          bgcolor: 'background.paper',
           marginLeft: `${drawerWidth + 30}px`,
           width: `calc(100% - ${drawerWidth + 70}px)`,
           marginTop: "100px",
