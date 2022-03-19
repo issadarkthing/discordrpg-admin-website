@@ -3,7 +3,7 @@ import { ironOptions } from "../../sessionConfig";
 import { UserDB } from "../../structure/DB";
 
 export default withIronSessionApiRoute(
-  function userRoute(req, res) {
+  async function userRoute(req, res) {
 
     if (!req.session.user) {
       res.status(403).send("you need to login");
@@ -37,11 +37,15 @@ export default withIronSessionApiRoute(
 
       if (apiUrl != null) {
         db.setApiUrl(user.username, apiUrl);
+        req.session.user.apiUrl = apiUrl;
       } 
 
       if (apiToken != null) {
         db.setApiToken(user.username, apiToken);
+        req.session.user.apiToken = apiToken;
       }
+
+      await req.session.save();
 
       res.status(200).send("data updated");
       return;
