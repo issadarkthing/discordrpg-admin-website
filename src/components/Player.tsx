@@ -111,11 +111,28 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
+export default function Player({ user }: { user: User }) {
 
-  const { isLoading, error, data, refetch } = useQuery<PlayerStructure[]>("players", () =>
-    fetch(`${apiUrl}/player`).then(data => data.json())
-    , { staleTime: 1000 * 60 });
+  const { apiUrl, apiToken } = user;
+
+  const { isLoading, error, data, refetch } = useQuery<PlayerStructure[]>(
+    "players", 
+    async () => {
+
+      const res = await fetch(`${apiUrl}/player`, { 
+        headers: {
+          "Authorization": `Basic ${apiToken}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      } else {
+        return await res.json();
+      }
+
+    }, 
+    { staleTime: 1000 * 60 });
   
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -124,6 +141,7 @@ export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
       method: "PATCH",
       body: JSON.stringify({ [x.field]: x.value }),
       headers: {
+        "Authorization": `Basic ${apiToken}`,
         "Content-Type": "application/json"
       }
     });
@@ -151,6 +169,9 @@ export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
 
       await fetch(`${apiUrl}/player?ids=${ids.join(",")}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Basic ${apiToken}`,
+        }
       });
 
       refetch();
@@ -210,14 +231,14 @@ export default function Player({ apiUrl }: { apiUrl: User["apiUrl"] }) {
     )
   }
 
-  if (error) return <div>An error is occurred: {(error as Error).message}</div>;
-
-  if (!data) return <div>No data</div>;
+  if (error) { 
+    return <div>An error is occurred: {(error as Error).message}</div>; 
+  }
 
   return (
     <div style={{ height: 600, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={data || []}
         columns={columns}
         loading={isLoading}
         onCellEditCommit={onCellEditCommit}

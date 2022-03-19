@@ -25,11 +25,10 @@ export default function Dashboard({ user }: { user: User }) {
   const categories = ["Players", "Inventories", "Settings"] as const;
   const [category, setCategory] = useState<Category>("Players");
 
-
   const Table = (props: { category: Category }) => {
     switch (props.category) {
-      case "Players": return <Player apiUrl={user.apiUrl} />;
-      case "Inventories": return <Inventory apiUrl={user.apiUrl} />;
+      case "Players": return <Player user={user} />;
+      case "Inventories": return <Inventory user={user} />;
       case "Settings": return <Settings />;
     }
   }

@@ -60,13 +60,27 @@ const columns: GridColDef[] = [
   }
 ];
 
-export default function Inventory({ apiUrl }: { apiUrl: User["apiUrl"] }) {
+export default function Inventory({ user }: { user: User }) {
 
+  const { apiUrl, apiToken } = user;
   const queryKey = "inventory";
   const { isLoading, error, data, refetch } = useQuery<InventoryStucture[]>(
     queryKey, 
-    () => fetch(`${apiUrl}/inventory`)
-      .then(data => data.json()), 
+    async () => {
+
+      const res = await fetch(`${apiUrl}/inventory`, { 
+        headers: {
+          "Authorization": `Basic ${apiToken}`
+        }
+      });
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      } else {
+        return await res.json();
+      }
+
+    }, 
     { staleTime: 1000 * 60 },
   );
 
@@ -87,6 +101,9 @@ export default function Inventory({ apiUrl }: { apiUrl: User["apiUrl"] }) {
       for (const [itemID, ownerID] of ids.map(x => x.split("_"))) {
         await fetch(`${apiUrl}/inventory/${ownerID}/${itemID}`, {
           method: "DELETE",
+          headers: {
+            "Authorization": `Basic ${apiToken}`
+          }
         });
       }
 
@@ -152,13 +169,10 @@ export default function Inventory({ apiUrl }: { apiUrl: User["apiUrl"] }) {
 
   if (error) return <div>An error is occurred: {(error as Error).message}</div>;
 
-  if (!data) return <div>No data</div>;
-
-
   return (
     <div style={{ height: 600, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={data || []}
         columns={columns}
         loading={isLoading}
         selectionModel={selected}
