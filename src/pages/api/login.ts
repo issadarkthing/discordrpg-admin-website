@@ -2,6 +2,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { ironOptions } from "../../sessionConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import { UserDB } from "../../structure/DB";
+import { sha256sum } from "../../structure/utils";
 
 export default withIronSessionApiRoute(loginRoute, ironOptions);
 
@@ -25,7 +26,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   if (!user) {
     res.status(404).send("cannot find user");
     return;
-  } else if (user.password !== password) {
+  } else if (user.password !== sha256sum(password)) {
     res.status(403).send("invalid password");
     return;
   }

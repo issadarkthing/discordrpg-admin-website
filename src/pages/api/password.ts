@@ -2,6 +2,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ironOptions } from "../../sessionConfig";
 import { UserDB } from "../../structure/DB";
+import { sha256sum } from "../../structure/utils";
 
 
 
@@ -37,7 +38,7 @@ function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
   if (!user) {
     res.status(404).send("cannot find user");
     return;
-  } else if (user.password !== oldPassword) {
+  } else if (user.password !== sha256sum(oldPassword)) {
     res.status(403).send("invalid password");
     return;
   } else if (oldPassword === newPassword) {
@@ -48,7 +49,7 @@ function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  db.setPassword(sessionUser.username, newPassword);
+  db.setPassword(sessionUser.username, sha256sum(newPassword));
   
   res.status(200).send("password updated successfully");
 }
