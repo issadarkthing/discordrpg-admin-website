@@ -2,12 +2,13 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Router from "next/router";
-import { IconButton, Stack } from '@mui/material';
+import { Divider, IconButton, Stack, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { User } from '../sessionConfig';
 
-export default function BasicMenu() {
+export default function BasicMenu({ user }: { user: User }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,6 +53,10 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem>
+          {user.username}
+        </MenuItem>
+        <Divider />
         <MenuItem onClick={handleChangePassword}>
           <Stack direction="row" spacing={2}>
             <LockOutlinedIcon /> 

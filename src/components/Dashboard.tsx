@@ -49,7 +49,7 @@ export default function Dashboard({ user }: { user: User }) {
           >
             Admin Panel
           </Typography>
-          <UserMenu  />
+          <UserMenu user={user}  />
         </Toolbar>
       </AppBar>
       <Box
