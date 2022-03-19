@@ -101,7 +101,7 @@ export default function Password() {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Typography variant="body">
+                  <Typography variant="body1">
                     Get back to <Link href="/" color="secondary">main</Link> page
                   </Typography>
                 </Grid>
