@@ -63,8 +63,6 @@ export default function() {
       apiToken: apiTokenField.current?.value,
     }
 
-    console.log(body);
-
     const res = await fetch("/api/user", {
       method: "PATCH",
       body: JSON.stringify(body),
