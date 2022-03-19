@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Button, Grid, Paper, TextField } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import { useUpdateAlert } from "./AlertProvider";
 import { useQuery } from "react-query";
 import { User } from "../sessionConfig";
 
-const ApiUrlField = React.forwardRef((props: { apiUrl: string }, ref) => {
+const ApiUrlField = React.forwardRef((props: { apiUrl?: string }, ref) => {
 
   return (
     <Grid item>
@@ -15,6 +15,7 @@ const ApiUrlField = React.forwardRef((props: { apiUrl: string }, ref) => {
         required
         label="API url" 
         helperText="URL endpoint of your bot's server"
+        disabled={props.apiUrl == null}
         defaultValue={props.apiUrl}
         inputRef={ref}
       />
@@ -22,7 +23,7 @@ const ApiUrlField = React.forwardRef((props: { apiUrl: string }, ref) => {
   )
 })
 
-const ApiTokenField = React.forwardRef((props: { apiToken: string }, ref) => {
+const ApiTokenField = React.forwardRef((props: { apiToken?: string }, ref) => {
 
   return (
     <Grid item>
@@ -31,6 +32,7 @@ const ApiTokenField = React.forwardRef((props: { apiToken: string }, ref) => {
         required
         label="API token" 
         helperText="Token to be authenticated by your bot's server"
+        disabled={props.apiToken == null}
         defaultValue={props.apiToken}
         inputRef={ref}
       />
@@ -45,15 +47,14 @@ export default function() {
   const apiTokenField = useRef<HTMLInputElement>();
   const updateAlertState = useUpdateAlert();
 
-  let { data, error, refetch } = useQuery<User>("user", () =>
+  const { data, error, refetch, isLoading } = useQuery<User>("user", () =>
     fetch("/api/user").then(data => data.json())
   );
 
-  if (!data) {
-    data = { username: "", apiToken: "", apiUrl: "" }
-
+  if (error) {
     updateAlertState.setError(error as string);
   }
+
 
   const onSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,13 +84,28 @@ export default function() {
 
 
   const SaveButton = () => {
-
     return (
       <Grid item>
         <Button type="submit" startIcon={<SaveIcon />}>
           Save
         </Button>
       </Grid>
+    )
+  }
+
+
+  if (isLoading) {
+    return (
+      <Paper sx={{ 
+        padding: 5, 
+          backgroundColor: "background.paper",
+      }}>
+        <Grid gap={4} container direction="column">
+          <ApiUrlField ref={apiUrlField} />
+          <ApiTokenField ref={apiTokenField} />
+          <SaveButton />
+        </Grid>
+      </Paper>
     )
   }
 
@@ -101,8 +117,8 @@ export default function() {
             backgroundColor: "background.paper",
         }}>
           <Grid gap={4} container direction="column">
-            <ApiUrlField ref={apiUrlField} apiUrl={data.apiUrl} />
-            <ApiTokenField ref={apiTokenField} apiToken={data.apiToken} />
+            <ApiUrlField ref={apiUrlField} apiUrl={data?.apiUrl} />
+            <ApiTokenField ref={apiTokenField} apiToken={data?.apiToken} />
             <SaveButton />
           </Grid>
         </Paper>
