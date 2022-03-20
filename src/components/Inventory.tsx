@@ -23,13 +23,8 @@ const columns: GridColDef[] = [
     hide: true,
   },
   {
-    field: "itemID",
-    headerName: "Item ID",
-    width: 120,
-  },
-  {
     field: "name",
-    headerName: "Name",
+    headerName: "Item Name",
     width: 200,
   },
   {
