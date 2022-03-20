@@ -25,7 +25,6 @@ export default function DataGrid(props: DataGridProps) {
           }
       }}
       rowsPerPageOptions={[10]}
-      sortModel={[{ field: "id", sort: "desc" }]}
       autoPageSize
       disableSelectionOnClick
       checkboxSelection
