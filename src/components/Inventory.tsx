@@ -1,7 +1,7 @@
 import { GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import DataGrid from "./DataGrid";
 import { useMutation, useQuery } from "react-query";
-import { Grid, Button, Box, Avatar } from "@mui/material";
+import { Grid, Button, Box, Avatar, Paper, Stack } from "@mui/material";
 import Confirmation from "./Confirmation";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useUpdateAlert } from "./AlertProvider";
 import { queryClient } from "../pages/_app";
 import { User } from "../sessionConfig";
+import ItemForm from "./ItemForm";
 
 export interface InventoryStucture {
   id: string;
@@ -170,20 +171,23 @@ export default function Inventory({ user }: { user: User }) {
   if (error) return <div>An error is occurred: {(error as Error).message}</div>;
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
-      <DataGrid
-        rows={data || []}
-        columns={columns}
-        loading={isLoading}
-        selectionModel={selected}
-        onSelectionModelChange={model => setSelected(model)}
-        sx={{ 
-          backgroundColor: "background.paper",
-          "& .footerCointainer": {
-            color: "text.primary"
-          },
-        }}
-      />
+    <div style={{ width: "100%" }}>
+      <Stack spacing={2} direction="row" sx={{ height: 600 }}>
+        <ItemForm user={user} />
+        <DataGrid
+          rows={data || []}
+          columns={columns}
+          loading={isLoading}
+          selectionModel={selected}
+          onSelectionModelChange={model => setSelected(model)}
+          sx={{ 
+            backgroundColor: "background.paper",
+              "& .footerCointainer": {
+                color: "text.primary"
+              },
+          }}
+        />
+      </Stack>
       <Grid container gap={1} justifyContent="flex-end" sx={{ marginTop: "10px" }}>
         <DeleteButton />
         <RefreshButton />
