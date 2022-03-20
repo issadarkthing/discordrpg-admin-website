@@ -4,6 +4,8 @@ import {
   Autocomplete,
   Stack,
   Button,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { useRef } from "react";
 import { useQuery } from "react-query";
@@ -73,6 +75,10 @@ export default function(props: { user: User }) {
     }}>
       <form onSubmit={onClicked}>
         <Stack spacing={4}>
+          <Alert variant="outlined" severity="info">
+            <AlertTitle>Adding items</AlertTitle>
+            Each player can only have 1 unit of an item
+          </Alert>
           <TextField inputRef={ownerIDRef} fullWidth label="Owner ID"/>
           <Autocomplete
             disablePortal

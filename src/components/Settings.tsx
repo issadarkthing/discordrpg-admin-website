@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Alert, AlertTitle, Button, Grid, Paper, TextField } from "@mui/material";
 import { useRef } from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import { useUpdateAlert } from "./AlertProvider";
@@ -115,8 +115,14 @@ export default function() {
         <Paper sx={{ 
           padding: 5, 
             backgroundColor: "background.paper",
+            backgroundImage: "none"
         }}>
           <Grid gap={4} container direction="column">
+            <Alert variant="outlined" severity="warning" sx={{ width: "50%" }}>
+              <AlertTitle>Warning</AlertTitle>
+              <strong>Do not</strong> change this settings unless you are told
+              to or you know what you are doing.
+            </Alert>
             <ApiUrlField ref={apiUrlField} apiUrl={data?.apiUrl} />
             <ApiTokenField ref={apiTokenField} apiToken={data?.apiToken} />
             <SaveButton />
