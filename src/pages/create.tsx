@@ -5,6 +5,7 @@ import {
   TextField,
   Button,
   Typography,
+  Link,
 } from "@mui/material";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
@@ -142,6 +143,9 @@ export default function() {
           </Paper>
         </form>
       </Grid>
+      <Typography sx={{ marginTop: 4 }}>
+        Go to <Link href="/" color="secondary">main</Link> page
+      </Typography>
       <AllAlerts />
     </Grid>
   )
