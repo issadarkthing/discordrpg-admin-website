@@ -49,7 +49,7 @@ async function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  db.setPassword(sessionUser.username, sha256sum(newPassword));
+  await db.setPassword(sessionUser.username, sha256sum(newPassword));
   
   res.status(200).send("password updated successfully");
 }

@@ -35,7 +35,7 @@ async function createRoute(req: NextApiRequest, res: NextApiResponse) {
 
   const db = new UserDB();
 
-  db.createUser({ 
+  await db.createUser({ 
     username, 
     password: sha256sum(password), 
     api_url: apiUrl, 

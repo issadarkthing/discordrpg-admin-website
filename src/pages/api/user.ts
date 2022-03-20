@@ -36,12 +36,12 @@ export default withIronSessionApiRoute(
       }
 
       if (apiUrl != null) {
-        db.setApiUrl(user.username, apiUrl);
+        await db.setApiUrl(user.username, apiUrl);
         req.session.user.apiUrl = apiUrl;
       } 
 
       if (apiToken != null) {
-        db.setApiToken(user.username, apiToken);
+        await db.setApiToken(user.username, apiToken);
         req.session.user.apiToken = apiToken;
       }
 
