@@ -1,4 +1,4 @@
-import { CssBaseline, Grid, Typography } from "@mui/material";
+import { CssBaseline, Grid, Typography, Link } from "@mui/material";
 
 
 
@@ -16,7 +16,10 @@ export default function() {
       >
         <Grid item>
           <Typography variant="h4">
-            404 Page not found
+            404 Page not found ⚠️
+          </Typography>
+          <Typography variant="body1">
+            Go back to <Link href="/" color="secondary">main</Link> page
           </Typography>
         </Grid>
       </Grid>
