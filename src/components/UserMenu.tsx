@@ -2,10 +2,11 @@ import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Router from "next/router";
-import { Divider, IconButton, Stack, Typography } from '@mui/material';
+import { Divider, IconButton, Stack } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import { User } from '../sessionConfig';
 
 export default function BasicMenu({ user }: { user: User }) {
@@ -18,6 +19,10 @@ export default function BasicMenu({ user }: { user: User }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleAddUser = () => {
+    Router.push("/create");
+  }
 
   const handleLogout = async () => {
 
@@ -57,6 +62,14 @@ export default function BasicMenu({ user }: { user: User }) {
           {user.username}
         </MenuItem>
         <Divider />
+        {user.username === "raziman" &&
+          <MenuItem onClick={handleAddUser}>
+            <Stack direction="row" spacing={2}>
+              <PersonAddAltOutlinedIcon />
+              <div>Add User</div>
+            </Stack>
+          </MenuItem>
+        }
         <MenuItem onClick={handleChangePassword}>
           <Stack direction="row" spacing={2}>
             <LockOutlinedIcon /> 
