@@ -11,7 +11,7 @@ export default withIronSessionApiRoute(
     }
 
     const db = new UserDB();
-    const user = db.getByUsername(req.session.user.username);
+    const user = await db.getByUsername(req.session.user.username);
 
     if (!user) {
       res.status(404).send("cannot find user");

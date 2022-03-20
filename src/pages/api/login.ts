@@ -21,7 +21,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
 
   const session = req.session;
   const db = new UserDB();
-  const user = db.getByUsername(username);
+  const user = await db.getByUsername(username);
 
   if (!user) {
     res.status(404).send("cannot find user");

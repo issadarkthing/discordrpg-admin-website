@@ -8,7 +8,7 @@ import { sha256sum } from "../../structure/utils";
 
 export default withIronSessionApiRoute(passwordHandler, ironOptions);
 
-function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
+async function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
 
   if (req.method !== "PATCH") {
     res.status(405).send("invalid method");
@@ -33,7 +33,7 @@ function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const db = new UserDB();
-  const user = db.getByUsername(sessionUser.username);
+  const user = await db.getByUsername(sessionUser.username);
 
   if (!user) {
     res.status(404).send("cannot find user");

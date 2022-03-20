@@ -1,7 +1,8 @@
-import Database from "better-sqlite3";
+import Josh from "@joshdb/core";
+//@ts-ignore
+import provider from "@joshdb/sqlite";
 
 export interface User {
-  id: number;
   username: string;
   password: string;
   api_url: string;
@@ -9,39 +10,29 @@ export interface User {
 }
 
 export class UserDB {
-  db = new Database("discordrpg.sqlite3");
+  db = new Josh({
+    name: "user",
+    provider,
+  });
 
-  constructor() {
-    const stmt = this.db.prepare(`
-      CREATE TABLE IF NOT EXISTS user (
-        id        INTEGER PRIMARY KEY,
-        username  TEXT NOT NULL UNIQUE,
-        password  TEXT NOT NULL,
-        api_url   TEXT,
-        api_token TEXT
-      )
-    `);
 
-    stmt.run();
+  getByUsername(username: string): Promise<User | undefined> {
+    return this.db.get(username);
   }
 
-  getByUsername(username: string): User | undefined {
-    const stmt = this.db.prepare("SELECT * FROM user WHERE username = ?");
-    return stmt.get(username);
+  createUser(user: User) {
+    return this.db.set(user.username, user);
   }
 
-  setPassword(username: string, password: string) {
-    const stmt = this.db.prepare("UPDATE user SET password = ? WHERE username = ?");
-    stmt.run(password, username);
+  async setPassword(username: string, password: string) {
+    await this.db.update(username, { password });
   }
 
-  setApiToken(username: string, token: string) {
-    const stmt = this.db.prepare("UPDATE user SET api_token = ? WHERE username = ?");
-    stmt.run(token, username);
+  async setApiToken(username: string, token: string) {
+    await this.db.update(username, { api_token: token });
   }
 
-  setApiUrl(username: string, apiUrl: string) {
-    const stmt = this.db.prepare("UPDATE user SET api_url = ? WHERE username = ?");
-    stmt.run(apiUrl, username);
+  async setApiUrl(username: string, apiUrl: string) {
+    await this.db.update(username, { api_url: apiUrl });
   }
 }

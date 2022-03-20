@@ -3,15 +3,15 @@ lockfileVersion: 5.3
 specifiers:
   '@emotion/react': ^11.8.2
   '@emotion/styled': ^11.8.1
+  '@joshdb/core': ^1.2.7
+  '@joshdb/sqlite': ^1.1.9
   '@mui/icons-material': ^5.5.1
   '@mui/material': ^5.5.1
   '@mui/system': ^5.5.1
   '@mui/x-data-grid': ^5.6.1
-  '@types/better-sqlite3': ^7.5.0
   '@types/node': 17.0.21
   '@types/react': 17.0.40
   '@types/react-form': ^4.0.2
-  better-sqlite3: ^7.5.0
   eslint: 8.11.0
   eslint-config-next: 12.1.0
   iron-session: ^6.0.5
@@ -24,11 +24,12 @@ specifiers:
 dependencies:
   '@emotion/react': 11.8.2_00d6772dea80510e818fd171caaa025a
   '@emotion/styled': 11.8.1_19c9b884401318110e0b35fad34f7b03
+  '@joshdb/core': 1.2.7
+  '@joshdb/sqlite': 1.1.9
   '@mui/icons-material': 5.5.1_eaabad477ab592e6fc6c82ff11471ee4
   '@mui/material': 5.5.1_04cccb159326fc32d263f5d228230564
   '@mui/system': 5.5.1_fcd809b460cfc9d78b56b52c09fcfe39
   '@mui/x-data-grid': 5.6.1_9ef4ea23443d9483d351f529e49cd0a8
-  better-sqlite3: 7.5.0
   iron-session: 6.0.5_next@12.1.0
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   react: 17.0.2
@@ -36,7 +37,6 @@ dependencies:
   react-query: 3.34.16_react-dom@17.0.2+react@17.0.2
 
 devDependencies:
-  '@types/better-sqlite3': 7.5.0
   '@types/node': 17.0.21
   '@types/react': 17.0.40
   '@types/react-form': 4.0.2
@@ -293,6 +293,22 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
+
+  /@joshdb/core/1.2.7:
+    resolution: {integrity: sha512-3Ut46qxKAicbdJILnlfptMZ4NAQ+S3xFx5cycMWpp4YccseTbe6ZLu6fSVMjYiORCUr/jd/wjMeCkG5uEJvzLA==}
+    dependencies:
+      lodash: 4.17.21
+      serialize-javascript: 6.0.0
+    dev: false
+
+  /@joshdb/sqlite/1.1.9:
+    resolution: {integrity: sha512-0RA9MajDsqQGx6EDhBe8bwjc3iecedUAC+oPQtp3sCrMqe0Eed3Yptv80S3NmldT3vVgb+r3FO4V/vtSkjzCyQ==}
+    dependencies:
+      better-sqlite3: 7.5.0
+      lodash: 4.17.21
+      on-change: 2.2.3
+      serialize-javascript: 5.0.1
+    dev: false
 
   /@mui/base/5.0.0-alpha.72_f456dfc349ace84b0ea11d9e6e4ef3ab:
     resolution: {integrity: sha512-WCAooa9eqbsC68LhyKtDBRumH4hV1eRZ0A3SDKFHSwYG9fCOdsFv/H1dIYRJM0rwD45bMnuDiG3Qmx7YsTiptw==}
@@ -616,12 +632,6 @@ packages:
 
   /@rushstack/eslint-patch/1.1.0:
     resolution: {integrity: sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==}
-    dev: true
-
-  /@types/better-sqlite3/7.5.0:
-    resolution: {integrity: sha512-G9ZbMjydW2yj1AgiPlUtdgF3a1qNpLJLudc9ynJCeJByS3XFWpmT9LT+VSHrKHFbxb31CvtYwetLTOvG9zdxdg==}
-    dependencies:
-      '@types/node': 17.0.21
     dev: true
 
   /@types/body-parser/1.19.2:
@@ -1952,6 +1962,10 @@ packages:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
 
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
@@ -2161,6 +2175,11 @@ packages:
     resolution: {integrity: sha512-z+pI07qxo4c2CulUHCDf9lcqDlMSo72N/4rLUpRXf6fu+q8vjt8y0xS+Tlf8NTJDdTXHbdeO1n3MlbctwEoXZw==}
     dev: false
 
+  /on-change/2.2.3:
+    resolution: {integrity: sha512-yx48YQW3XsMHYWJ5n8oOgonrxsIJJNn1fqE3QlQpYS/I6XHvzTARHzaVbwFyJoSaZ4g7UTZheaaxHVtFKcNXgg==}
+    engines: {node: '>=10'}
+    dev: false
+
   /once/1.4.0:
     resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}
     dependencies:
@@ -2303,6 +2322,12 @@ packages:
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
+
+  /randombytes/2.1.0:
+    resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
+    dependencies:
+      safe-buffer: 5.2.1
+    dev: false
 
   /rc/1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -2480,6 +2505,18 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+
+  /serialize-javascript/5.0.1:
+    resolution: {integrity: sha512-SaaNal9imEO737H2c05Og0/8LUXG7EnsZyMa8MzkmuHoELfT6txuj0cMqRj6zfPKnmQ1yasR4PCJc8x+M4JSPA==}
+    dependencies:
+      randombytes: 2.1.0
+    dev: false
+
+  /serialize-javascript/6.0.0:
+    resolution: {integrity: sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==}
+    dependencies:
+      randombytes: 2.1.0
+    dev: false
 
   /set-blocking/2.0.0:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
@@ -2713,7 +2750,7 @@ packages:
   /tunnel-agent/0.6.0:
     resolution: {integrity: sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=}
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
     dev: false
 
   /type-check/0.4.0:
