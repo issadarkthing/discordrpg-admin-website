@@ -14,7 +14,7 @@ import Router from "next/router";
 import AllAlerts from "./AllAlerts";
 
 
-const PasswordField = React.forwardRef((props: { label: string }, ref) => {
+const PasswordField = React.forwardRef(function PasswordField(props: { label: string }, ref) {
   return (
     <Grid item sx={{ width: "80%" }}>
       <TextField 

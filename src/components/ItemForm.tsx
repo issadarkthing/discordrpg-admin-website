@@ -12,7 +12,7 @@ import { useQuery } from "react-query";
 import { User } from "../sessionConfig";
 import { useUpdateAlert } from "./AlertProvider";
 
-export default function(props: { user: User }) {
+export default function ItemForm(props: { user: User }) {
   const ownerIDRef = useRef<HTMLInputElement>();
   const itemNameRef = useRef<HTMLInputElement>();
   const updateAlert = useUpdateAlert();

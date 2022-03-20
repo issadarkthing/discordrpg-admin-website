@@ -40,7 +40,7 @@ export const getServerSideProps = withIronSessionSsr(
   ironOptions
 )
 
-const Field = React.forwardRef((props: { label: string }, ref) => {
+const Field = React.forwardRef(function Field(props: { label: string }, ref) {
 
   return (
     <Grid item sx={{ width: "80%" }}>
@@ -53,7 +53,7 @@ const Field = React.forwardRef((props: { label: string }, ref) => {
   )
 })
 
-const PasswordField = React.forwardRef((props, ref) => {
+const PasswordField = React.forwardRef(function PasswordField(props, ref) {
 
   return (
     <Grid item sx={{ width: "80%" }}>
@@ -67,7 +67,7 @@ const PasswordField = React.forwardRef((props, ref) => {
   )
 })
 
-export default function() {
+export default function Create() {
   const username = useRef<HTMLInputElement>();
   const password = useRef<HTMLInputElement>();
   const apiUrl = useRef<HTMLInputElement>();

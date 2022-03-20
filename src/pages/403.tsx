@@ -2,7 +2,7 @@ import { CssBaseline, Grid, Typography, Link } from "@mui/material";
 
 
 
-export default function() {
+export default function Page403() {
 
   return (
     <div>

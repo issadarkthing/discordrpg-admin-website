@@ -6,7 +6,7 @@ import { useUpdateAlert } from "./AlertProvider";
 import { useQuery } from "react-query";
 import { User } from "../sessionConfig";
 
-const ApiUrlField = React.forwardRef((props: { apiUrl?: string }, ref) => {
+const ApiUrlField = React.forwardRef(function ApiUrlField(props: { apiUrl?: string }, ref) {
 
   return (
     <Grid item>
@@ -23,7 +23,7 @@ const ApiUrlField = React.forwardRef((props: { apiUrl?: string }, ref) => {
   )
 })
 
-const ApiTokenField = React.forwardRef((props: { apiToken?: string }, ref) => {
+const ApiTokenField = React.forwardRef(function ApiTokenField(props: { apiToken?: string }, ref) {
 
   return (
     <Grid item>
@@ -42,7 +42,7 @@ const ApiTokenField = React.forwardRef((props: { apiToken?: string }, ref) => {
 
 
 
-export default function() {
+export default function Settings() {
   const apiUrlField = useRef<HTMLInputElement>();
   const apiTokenField = useRef<HTMLInputElement>();
   const updateAlertState = useUpdateAlert();
