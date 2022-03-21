@@ -84,13 +84,12 @@ export default function Login() {
     });
 
     if (res.ok) {
-      router.push("/");
+      router.push("/").then(() => setLoading(false));
     } else {
       const message = await res.text();
       updateAlertState.setError(message);
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
