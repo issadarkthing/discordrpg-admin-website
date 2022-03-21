@@ -30,7 +30,7 @@ export default function Dashboard({ user }: { user: User }) {
 
     setInterval(() => {
       
-      fetch("/api/user");
+      fetch("/api/user", { method: "POST" });
 
     }, 1000 * 60); // runs every 1 minute
 

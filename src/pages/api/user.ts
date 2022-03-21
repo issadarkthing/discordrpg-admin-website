@@ -20,12 +20,6 @@ export default withIronSessionApiRoute(
 
     if (req.method === "GET") {
 
-      const ip = req.headers["x-real-ip"] as string;
-      await db.setIP(user.username, ip);
-
-      const now = new Date();
-      await db.setLastOnline(user.username, now);
-
       res.send({ 
         username: user.username,
         apiUrl: user.api_url,
@@ -55,6 +49,18 @@ export default withIronSessionApiRoute(
       await req.session.save();
 
       res.status(200).send("data updated");
+      return;
+
+    } else if (req.method === "POST") {
+
+      const ip = req.headers["x-real-ip"] as string;
+      await db.setIP(user.username, ip);
+
+      const now = new Date();
+      await db.setLastOnline(user.username, now);
+
+      res.send("updated");
+
       return;
     }
 
