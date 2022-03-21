@@ -4,11 +4,12 @@ import {
   Paper,
   TextField,
   Button,
+  CircularProgress,
   Typography,
 } from "@mui/material";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useUpdateAlert } from "../components/AlertProvider";
 import AllAlerts from "../components/AllAlerts";
 import { ironOptions } from "../sessionConfig";
@@ -62,10 +63,12 @@ export default function Login() {
   const password = useRef<HTMLInputElement>();
   const router = useRouter();
   const updateAlertState = useUpdateAlert();
-
+  const [loading, setLoading] = useState(false);
 
   const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const body = { 
       username: username.current?.value, 
@@ -86,6 +89,8 @@ export default function Login() {
       const message = await res.text();
       updateAlertState.setError(message);
     }
+
+    setLoading(false);
   }
 
   return (
@@ -120,7 +125,7 @@ export default function Login() {
                   type="submit" 
                   sx={{ width: "100%" }} 
                 >
-                  login
+                  {loading ? <CircularProgress size={25} /> : "login"}
                 </Button>
               </Grid>
             </Grid>
