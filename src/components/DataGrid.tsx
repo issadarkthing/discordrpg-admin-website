@@ -5,8 +5,12 @@ export default function DataGrid(props: DataGridProps) {
   return (
     <MuiDataGrid
       sx={{ 
-        width: "100%", 
+          width: "100%", 
           borderColor: "divider", 
+          backgroundColor: "background.paper",
+          "& .footerCointainer": {
+            color: "text.primary"
+          },
           "& .MuiDataGrid-cell": {
             borderBottomColor: "divider",
           },

@@ -31,6 +31,8 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
+  db.setLastLogin(user.username, new Date());
+
   session.user = { 
     username: user.username,
     apiUrl: user.api_url,

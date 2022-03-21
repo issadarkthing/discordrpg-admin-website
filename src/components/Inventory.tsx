@@ -175,12 +175,6 @@ export default function Inventory({ user }: { user: User }) {
           loading={isLoading}
           selectionModel={selected}
           onSelectionModelChange={model => setSelected(model)}
-          sx={{ 
-            backgroundColor: "background.paper",
-              "& .footerCointainer": {
-                color: "text.primary"
-              },
-          }}
         />
       </Stack>
       <Grid container gap={1} justifyContent="flex-end" sx={{ marginTop: "10px" }}>

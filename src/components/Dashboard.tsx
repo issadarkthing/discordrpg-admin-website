@@ -10,26 +10,39 @@ import ListItemText from '@mui/material/ListItemText';
 import { ListItemButton } from "@mui/material";
 import Player from './Player';
 import Inventory from './Inventory';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AllAlerts from "./AllAlerts";
 import UserMenu from "./UserMenu";
 import Settings from "./Settings";
+import Admin from "./Admin";
 import { User } from "../sessionConfig";
 
 const drawerWidth = 240;
-type Category = "Players" | "Inventories" | "Settings";
+type Category = "Players" | "Inventories" | "Settings" | "Admins";
 
 
 export default function Dashboard({ user }: { user: User }) {
 
-  const categories = ["Players", "Inventories", "Settings"] as const;
+  const categories = ["Players", "Inventories", "Settings", "Admins"] as const;
   const [category, setCategory] = useState<Category>("Players");
+
+  useEffect(() => {
+
+    setInterval(() => {
+      
+      fetch("/api/user");
+
+    }, 1000 * 60); // runs every 1 minute
+
+
+  }, [])
 
   const Table = (props: { category: Category }) => {
     switch (props.category) {
       case "Players": return <Player user={user} />;
       case "Inventories": return <Inventory user={user} />;
       case "Settings": return <Settings />;
+      case "Admins": return user.username === "raziman" ? <Admin /> : null;
     }
   }
 
