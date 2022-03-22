@@ -5,6 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useUpdateAlert } from "./AlertProvider";
 import { useQuery } from "react-query";
 import { User } from "../sessionConfig";
+import { CircleNotificationsOutlined } from "@mui/icons-material";
 
 const ApiUrlField = React.forwardRef(function ApiUrlField(props: { apiUrl?: string }, ref) {
 
@@ -93,19 +94,11 @@ export default function Settings() {
     )
   }
 
-
   if (isLoading) {
     return (
-      <Paper sx={{ 
-        padding: 5, 
-          backgroundColor: "background.paper",
-      }}>
-        <Grid gap={4} container direction="column">
-          <ApiUrlField ref={apiUrlField} />
-          <ApiTokenField ref={apiTokenField} />
-          <SaveButton />
-        </Grid>
-      </Paper>
+      <>
+        <CircleNotificationsOutlined />
+      </>
     )
   }
 
