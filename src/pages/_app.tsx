@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import { AlertProvider } from "../components/AlertProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Head from "next/head";
 
 export const themeOptions = createTheme({
   palette: {
@@ -43,18 +42,13 @@ export const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>DiscordRPG Admin</title>
-      </Head>
-      <ThemeProvider theme={themeOptions}>
-        <AlertProvider>
-          <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-          </QueryClientProvider>
-        </AlertProvider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={themeOptions}>
+      <AlertProvider>
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </AlertProvider>
+    </ThemeProvider>
   )
 }
 
