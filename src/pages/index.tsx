@@ -21,6 +21,15 @@ import { ironOptions, User } from "../sessionConfig";
   ironOptions,
 ); */}
 
+export const getServerSideProps = () => {
+  return {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    }
+  }
+}
+
 function App({ user }: { user: User }) { 
   return <Dashboard user={user} />;
 }
