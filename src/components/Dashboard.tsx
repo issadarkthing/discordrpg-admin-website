@@ -15,7 +15,7 @@ import AllAlerts from "./AllAlerts";
 import UserMenu from "./UserMenu";
 import Settings from "./Settings";
 import Admin from "./Admin";
-import { User } from "../sessionConfig";
+import { adminUsername, User } from "../sessionConfig";
 
 const drawerWidth = 240;
 
@@ -25,7 +25,7 @@ export default function Dashboard({ user }: { user: User }) {
   const categories = ["Players", "Inventories", "Settings"];
   const [category, setCategory] = useState<string>("Players");
 
-  if (user.username === "raziman") {
+  if (user.username === adminUsername) {
     categories.push("Admins");
   }
 

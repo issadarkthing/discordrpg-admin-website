@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { useUpdateAlert } from "../components/AlertProvider";
 import AllAlerts from "../components/AllAlerts";
-import { ironOptions } from "../sessionConfig";
+import { adminUsername, ironOptions } from "../sessionConfig";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
@@ -26,7 +26,7 @@ export const getServerSideProps = withIronSessionSsr(
       }
     }
 
-    if (req.session.user.username !== "raziman") {
+    if (req.session.user.username !== adminUsername) {
       return {
         redirect: {
           destination: "/403",

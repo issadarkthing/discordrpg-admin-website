@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import { User } from '../sessionConfig';
+import { adminUsername, User } from '../sessionConfig';
 
 export default function BasicMenu({ user }: { user: User }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,7 +62,7 @@ export default function BasicMenu({ user }: { user: User }) {
           {user.username}
         </MenuItem>
         <Divider />
-        {user.username === "raziman" &&
+        {user.username === adminUsername &&
           <MenuItem onClick={handleAddUser}>
             <Stack direction="row" spacing={2}>
               <PersonAddAltOutlinedIcon />

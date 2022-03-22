@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "../../sessionConfig";
+import { adminUsername, ironOptions } from "../../sessionConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import { UserDB } from "../../structure/DB";
 import { sha256sum } from "../../structure/utils";
@@ -12,7 +12,7 @@ async function createRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     res.status(405).send("unknown method");
     return;
-  } else if (req.session.user?.username !== "raziman") {
+  } else if (req.session.user?.username !== adminUsername) {
     res.status(403).send("unauthorized");
     return;
   }
