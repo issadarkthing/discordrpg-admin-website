@@ -2,7 +2,7 @@ import Dashboard from "../components/Dashboard";
 import { withIronSessionSsr } from "iron-session/next";
 import { ironOptions, User } from "../sessionConfig";
 
-export const getServerSideProps = withIronSessionSsr(
+{/* export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
 
     if (!req.session.user) {
@@ -19,7 +19,7 @@ export const getServerSideProps = withIronSessionSsr(
     };
   },
   ironOptions,
-);
+); */}
 
 function App({ user }: { user: User }) { 
   return <Dashboard user={user} />;
