@@ -18,13 +18,16 @@ import Admin from "./Admin";
 import { User } from "../sessionConfig";
 
 const drawerWidth = 240;
-type Category = "Players" | "Inventories" | "Settings" | "Admins";
 
 
 export default function Dashboard({ user }: { user: User }) {
 
-  const categories = ["Players", "Inventories", "Settings", "Admins"] as const;
-  const [category, setCategory] = useState<Category>("Players");
+  const categories = ["Players", "Inventories", "Settings"];
+  const [category, setCategory] = useState<string>("Players");
+
+  if (user.username === "raziman") {
+    categories.push("Admins");
+  }
 
   useEffect(() => {
 
@@ -37,12 +40,13 @@ export default function Dashboard({ user }: { user: User }) {
 
   }, [])
 
-  const Table = (props: { category: Category }) => {
+  const Table = (props: { category: string }) => {
     switch (props.category) {
       case "Players": return <Player user={user} />;
       case "Inventories": return <Inventory user={user} />;
       case "Settings": return <Settings />;
-      case "Admins": return user.username === "raziman" ? <Admin /> : null;
+      case "Admins": return <Admin />;
+      default: return null;
     }
   }
 
