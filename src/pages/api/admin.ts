@@ -17,8 +17,14 @@ async function adminRoute(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const db = new UserDB();
-  const users = await db.getAllUsers();
+  await db.connect();
+
+  try {
+    const users = await db.getAllUsers();
+    res.json(users);
+  } finally {
+    db.release();
+  }
   
-  res.json(users);
 }
 
