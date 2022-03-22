@@ -21,33 +21,24 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
 
   const session = req.session;
   const db = new UserDB();
-  await db.connect();
+  const user = await db.getByUsername(username);
 
-  try {
-
-    const user = await db.getByUsername(username);
-
-    if (!user) {
-      res.status(404).send("cannot find user");
-      return;
-    } else if (user.password !== sha256sum(password)) {
-      res.status(403).send("invalid password");
-      return;
-    }
-
-    await db.setLastLogin(user.username, new Date());
-
-
-    session.user = { 
-      username: user.username,
-      apiUrl: user.api_url,
-      apiToken: user.api_token,
-    };
-
-    await req.session.save();
-    res.send("logged in");
-
-  } finally {
-    db.release();
+  if (!user) {
+    res.status(404).send("cannot find user");
+    return;
+  } else if (user.password !== sha256sum(password)) {
+    res.status(403).send("invalid password");
+    return;
   }
+
+  db.setLastLogin(user.username, new Date());
+
+  session.user = { 
+    username: user.username,
+    apiUrl: user.api_url,
+    apiToken: user.api_token,
+  };
+
+  await req.session.save();
+  res.send("logged in");
 }

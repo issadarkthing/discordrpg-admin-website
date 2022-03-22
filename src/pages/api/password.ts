@@ -33,31 +33,23 @@ async function passwordHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const db = new UserDB();
-  await db.connect();
+  const user = await db.getByUsername(sessionUser.username);
 
-  try {
-    const user = await db.getByUsername(sessionUser.username);
-
-    if (!user) {
-      res.status(404).send("cannot find user");
-      return;
-    } else if (user.password !== sha256sum(oldPassword)) {
-      res.status(403).send("invalid password");
-      return;
-    } else if (oldPassword === newPassword) {
-      res.status(400).send("old password cannot be the same as old password");
-      return;
-    } else if (newPassword.length < 8) {
-      res.status(400).send("new password cannot be less than 8 characters");
-      return;
-    }
-
-    await db.setPassword(sessionUser.username, sha256sum(newPassword));
-
-    res.status(200).send("password updated successfully");
-
-  } finally {
-    db.release();
+  if (!user) {
+    res.status(404).send("cannot find user");
+    return;
+  } else if (user.password !== sha256sum(oldPassword)) {
+    res.status(403).send("invalid password");
+    return;
+  } else if (oldPassword === newPassword) {
+    res.status(400).send("old password cannot be the same as old password");
+    return;
+  } else if (newPassword.length < 8) {
+    res.status(400).send("new password cannot be less than 8 characters");
+    return;
   }
 
+  await db.setPassword(sessionUser.username, sha256sum(newPassword));
+  
+  res.status(200).send("password updated successfully");
 }
