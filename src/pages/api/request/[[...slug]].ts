@@ -25,10 +25,11 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
     }
   });
 
+
   if (!response.ok) {
-    res.send(await response.text());
+    res.status(response.status).send(await response.text());
   } else {
-    res.json(await response.json());
+    res.status(response.status).json(await response.json());
   }
 }
 
