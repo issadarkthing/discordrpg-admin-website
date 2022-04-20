@@ -26,7 +26,7 @@ export default function BasicMenu({ user }: { user: User }) {
 
   const handleLogout = async () => {
 
-    const res = await fetch("/api/logout");
+    const res = await fetch("/api/logout", { method: "POST" });
 
     if (res.ok) {
       Router.push("/logout");
