@@ -1,7 +1,6 @@
 import { withIronSessionApiRoute } from "iron-session/next"
 import { NextApiRequest, NextApiResponse } from "next";
 import { ironOptions } from "../../../sessionConfig";
-import { join } from "path";
 
 export default withIronSessionApiRoute(requestRoute, ironOptions);
 
@@ -15,9 +14,10 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const { apiUrl, apiToken } = req.session.user;
-  const path = apiUrl.replace(/^.*\/request/, "");
-  const url = join(apiUrl, path);
-  
+  const cleanApiUrl = apiUrl.replace(/\/$/, ""); // remove trailing backslash
+  const path = req.url!.replace(/^.*\/request/, ""); // remove "*/request" prefix
+  const url = `${cleanApiUrl}${path}`;
+
   const response = await fetch(url, { 
     method: req.method,
     headers: {
