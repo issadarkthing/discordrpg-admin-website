@@ -58,13 +58,13 @@ const columns: GridColDef[] = [
 
 export default function Inventory({ user }: { user: User }) {
 
-  const { apiUrl, apiToken } = user;
+  const { apiToken } = user;
   const queryKey = "inventory";
   const { isLoading, error, data, refetch } = useQuery<InventoryStucture[]>(
     queryKey, 
     async () => {
 
-      const res = await fetch(`${apiUrl}/inventory`, { 
+      const res = await fetch(`/request/inventory`, { 
         headers: {
           "Authorization": `Basic ${apiToken}`
         }
@@ -95,7 +95,7 @@ export default function Inventory({ user }: { user: User }) {
       }
 
       for (const [itemID, ownerID] of ids.map(x => x.split("_"))) {
-        await fetch(`${apiUrl}/inventory/${ownerID}/${itemID}`, {
+        await fetch(`/request/inventory/${ownerID}/${itemID}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Basic ${apiToken}`
