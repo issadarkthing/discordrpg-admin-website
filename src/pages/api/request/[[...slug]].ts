@@ -32,7 +32,7 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (req.method !== "GET" && req.method !== "HEAD") {
-    init.body = req.body;
+    init.body = JSON.stringify(req.body);
   }
 
   const response = await fetch(url, init);
