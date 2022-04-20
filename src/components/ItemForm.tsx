@@ -18,7 +18,7 @@ export default function ItemForm(props: { user: User }) {
   const updateAlert = useUpdateAlert();
 
   let { data } = useQuery<{ name: string, id: string }[]>("items", () =>
-    fetch(`${props.user.apiUrl}/inventory/items`, {
+    fetch(`/api/request/inventory/items`, {
       headers: {
         "Authorization": `token ${props.user.apiToken}`
       }
@@ -48,7 +48,7 @@ export default function ItemForm(props: { user: User }) {
       id: itemID,
     }
 
-    const res = await fetch(`${props.user.apiUrl}/inventory/${ownerID}`, {
+    const res = await fetch(`/api/request/inventory/${ownerID}`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
