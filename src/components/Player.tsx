@@ -119,7 +119,7 @@ export default function Player({ user }: { user: User }) {
     "players", 
     async () => {
 
-      const res = await fetch(`/request/player`, { 
+      const res = await fetch(`/api/request/player`, { 
         headers: {
           "Authorization": `Basic ${apiToken}`
         }
@@ -137,7 +137,7 @@ export default function Player({ user }: { user: User }) {
   const [selected, setSelected] = useState<string[]>([]);
 
   const editPlayer = useMutation("edit-player", async (x: GridCellEditCommitParams) => {
-    await fetch(`/request/player/${x.id}`, {
+    await fetch(`/api/request/player/${x.id}`, {
       method: "PATCH",
       body: JSON.stringify({ [x.field]: x.value }),
       headers: {
@@ -167,7 +167,7 @@ export default function Player({ user }: { user: User }) {
         return;
       }
 
-      await fetch(`/request/player?ids=${ids.join(",")}`, {
+      await fetch(`/api/request/player?ids=${ids.join(",")}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Basic ${apiToken}`,

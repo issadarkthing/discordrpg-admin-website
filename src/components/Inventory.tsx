@@ -64,7 +64,7 @@ export default function Inventory({ user }: { user: User }) {
     queryKey, 
     async () => {
 
-      const res = await fetch(`/request/inventory`, { 
+      const res = await fetch(`/api/request/inventory`, { 
         headers: {
           "Authorization": `Basic ${apiToken}`
         }
@@ -95,7 +95,7 @@ export default function Inventory({ user }: { user: User }) {
       }
 
       for (const [itemID, ownerID] of ids.map(x => x.split("_"))) {
-        await fetch(`/request/inventory/${ownerID}/${itemID}`, {
+        await fetch(`/api/request/inventory/${ownerID}/${itemID}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Basic ${apiToken}`
