@@ -26,12 +26,16 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
     headers["Content-Type"] = "application/json";
   }
 
-  const response = await fetch(url, { 
+  const init: RequestInit = {
     method: req.method,
-    body: req.body,
     headers,
-  });
+  }
 
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    init.body = req.body;
+  }
+
+  const response = await fetch(url, init);
 
   if (!response.ok) {
     res.status(response.status).send(await response.text());
