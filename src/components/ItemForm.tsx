@@ -75,10 +75,6 @@ export default function ItemForm(props: { user: User }) {
     }}>
       <form onSubmit={onClicked}>
         <Stack spacing={4}>
-          <Alert variant="outlined" severity="info">
-            <AlertTitle>Adding items</AlertTitle>
-            Each player can only have 1 unit of an item
-          </Alert>
           <TextField inputRef={ownerIDRef} fullWidth label="Owner ID"/>
           <Autocomplete
             disablePortal
