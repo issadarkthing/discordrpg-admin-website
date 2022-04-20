@@ -25,6 +25,6 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
     }
   });
 
-  res.send(response);
+  res.send(await response.json());
 }
 
