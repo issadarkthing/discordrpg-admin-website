@@ -18,11 +18,18 @@ async function requestRoute(req: NextApiRequest, res: NextApiResponse) {
   const path = req.url!.replace(/^.*\/request/, ""); // remove "*/request" prefix
   const url = `${cleanApiUrl}${path}`;
 
+  const headers: any = {
+    "Authorization": `token ${apiToken}`,
+  };
+
+  if (req.body) {
+    headers["Content-Type"] = "application/json";
+  }
+
   const response = await fetch(url, { 
     method: req.method,
-    headers: {
-      "Authorization": `token ${apiToken}`
-    }
+    body: req.body,
+    headers,
   });
 
 
